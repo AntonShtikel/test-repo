@@ -1,4 +1,12 @@
-import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { CreateBankDto } from './dto/create-bank.dto';
 import { BankService } from './bank.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -21,14 +29,20 @@ export class BankController {
   }
   @ApiOperation({ summary: 'Get one bank' })
   @ApiResponse({ status: 200, type: Bank })
-  @Get('/:name')
-  getOneBank(@Param('name') name: string) {
-    return this.bankService.getOneBank(name);
+  @Get('/:id')
+  getOneBank(@Param('id') id: string) {
+    return this.bankService.getOneBank(id);
   }
   @ApiOperation({ summary: 'Delete one bank' })
-  @ApiResponse({ status: 200, type: Bank })
+  @ApiResponse({ status: 200, description: `monobank deleted` })
   @Delete('/:name')
   deleteBank(@Param('name') name: string) {
     return this.bankService.deleteBank(name);
+  }
+  @ApiOperation({ summary: 'Update bank' })
+  @ApiResponse({ status: 200, type: Bank })
+  @Put('/:id')
+  editBank(@Body() updateBankDto: CreateBankDto, @Param('id') id: string) {
+    return this.bankService.editBank(id, updateBankDto);
   }
 }

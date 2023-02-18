@@ -8,7 +8,7 @@ export class Bank extends BaseEntity {
     description: 'Primary key',
   })
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
   @ApiProperty({
     example: 'ExampleBank',
     description: 'Bank name',

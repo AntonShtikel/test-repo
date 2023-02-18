@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Bank } from './bank.entity';
-import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CreateBankDto } from './dto/create-bank.dto';
 
 @Injectable()
@@ -18,13 +18,22 @@ export class BankService {
     return await this.bankRepository.find();
   }
 
-  async getOneBank(name: string): Promise<Bank> {
-    return await this.bankRepository.findOne({ where: { name } });
+  async getOneBank(id: string): Promise<Bank> {
+    return await this.bankRepository.findOne({ where: { id } });
   }
 
-  async deleteBank(name: string): Promise<void> {
-    await this.bankRepository.delete({ name });
+  async deleteBank(name: string): Promise<string> {
+    if (await this.bankRepository.delete({ name })) {
+      return `${name} deleted`;
+    }
+    return 'deleting error';
   }
 
-  async editBank() {}
+  async editBank(id, updateBankDto: CreateBankDto): Promise<UpdateResult> {
+    const checkBank = await this.bankRepository.findOne({ where: { id } });
+    if (!checkBank) {
+      throw new HttpException('Bank does not exist', HttpStatus.BAD_REQUEST);
+    }
+    return await this.bankRepository.update(id, updateBankDto);
+  }
 }
