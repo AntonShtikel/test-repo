@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as process from 'process';
 import { BankModule } from './bank/bank.module';
 import { ConfigModule } from '@nestjs/config';
-import {Bank} from "./bank/bank.model";
+import {Bank} from "./bank/bank.entity";
 
 @Module({
   controllers: [],
