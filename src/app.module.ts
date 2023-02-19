@@ -4,6 +4,8 @@ import * as process from 'process';
 import { BankModule } from './bank/bank.module';
 import { ConfigModule } from '@nestjs/config';
 import {Bank} from "./bank/bank.entity";
+import { CategoryModule } from './categories/category.module';
+import {Category} from "./categories/category.entity";
 
 @Module({
   controllers: [],
@@ -19,10 +21,11 @@ import {Bank} from "./bank/bank.entity";
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities: [Bank],
+      entities: [Bank, Category],
       synchronize: true,
     }),
     BankModule,
+    CategoryModule,
   ],
 })
 export class AppModule {}
