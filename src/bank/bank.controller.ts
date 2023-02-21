@@ -30,7 +30,7 @@ export class BankController {
   @ApiOperation({ summary: 'Get one bank' })
   @ApiResponse({ status: 200, type: Bank })
   @Get('/:id')
-  getOneBank(@Param('id') id: string) {
+  getOneBank(@Param('id') id: number) {
     return this.bankService.getOneBank(id);
   }
   @ApiOperation({ summary: 'Delete one bank' })
@@ -42,7 +42,7 @@ export class BankController {
   @ApiOperation({ summary: 'Update bank' })
   @ApiResponse({ status: 200, type: Bank })
   @Put('/:id')
-  editBank(@Body() updateBankDto: CreateBankDto, @Param('id') id: string) {
+  editBank(@Body() updateBankDto: CreateBankDto, @Param('id') id: number) {
     return this.bankService.editBank(id, updateBankDto);
   }
 }

@@ -18,7 +18,7 @@ export class BankService {
     return await this.bankRepository.find();
   }
 
-  async getOneBank(id: string): Promise<Bank> {
+  async getOneBank(id: number): Promise<Bank> {
     return await this.bankRepository.findOne({ where: { id } });
   }
 
