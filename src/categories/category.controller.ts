@@ -31,7 +31,7 @@ export class CategoryController {
   @ApiOperation({ summary: 'Get one category' })
   @ApiResponse({ status: 200, type: Category })
   @Get('/:id')
-  getOneBank(@Param('id') id: string) {
+  getOneBank(@Param('id') id: number) {
     return this.categoryService.getOneCategory(id);
   }
   @ApiOperation({ summary: 'Delete one category' })
@@ -45,7 +45,7 @@ export class CategoryController {
   @Put('/:id')
   editBank(
     @Body() updateCategoryDto: CreateCategoryDto,
-    @Param('id') id: string,
+    @Param('id') id: number,
   ) {
     return this.categoryService.editCategory(id, updateCategoryDto);
   }

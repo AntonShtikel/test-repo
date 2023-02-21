@@ -19,7 +19,7 @@ export class CategoryService {
     return await this.categoryRepository.find();
   }
 
-  async getOneCategory(id: string): Promise<Category> {
+  async getOneCategory(id: number): Promise<Category> {
     return await this.categoryRepository.findOne({ where: { id } });
   }
   async deleteCategory(name: string): Promise<string> {

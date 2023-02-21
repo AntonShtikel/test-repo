@@ -16,8 +16,8 @@ export class Transaction extends BaseEntity {
     example: '63823b42-3430-41fa-9803-2fb3f16fd114',
     description: 'Primary key',
   })
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @ApiProperty({
     example: '100',
