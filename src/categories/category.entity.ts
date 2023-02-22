@@ -1,6 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
-import {Transaction} from "../transaction/transaction.entity";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Transaction } from '../transaction/transaction.entity';
 
 @Entity({ name: 'category' })
 export class Category extends BaseEntity {
@@ -17,6 +23,6 @@ export class Category extends BaseEntity {
   @Column({ nullable: false })
   name: string;
 
-  @OneToMany(() => Transaction, (transaction) => transaction.id)
+  @OneToMany(() => Transaction, (transaction) => transaction.bank)
   transaction: Transaction[];
 }

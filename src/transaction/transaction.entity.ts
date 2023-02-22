@@ -1,6 +1,7 @@
 import {
   BaseEntity,
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -8,7 +9,7 @@ import {
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Bank } from '../bank/bank.entity';
-import {Category} from "../categories/category.entity";
+import { Category } from '../categories/category.entity';
 
 @Entity({ name: 'transaction' })
 export class Transaction extends BaseEntity {
@@ -33,11 +34,18 @@ export class Transaction extends BaseEntity {
   @Column({ nullable: false })
   type: boolean;
 
+  @ApiProperty({
+    example: '2023-02-22 12:10:27.974312',
+    description: 'created time',
+  })
+  @CreateDateColumn()
+  created_at: Date;
+
   @ManyToOne(() => Bank, (bank) => bank.id)
   @JoinColumn()
-  bank: Bank;
+  bank: number;
 
   @ManyToOne(() => Category, (category) => category.id)
   @JoinColumn()
-  category: Category;
+  category: number;
 }

@@ -20,10 +20,10 @@ export class TransactionService {
 
   async createTransaction(dto: CreateTransactionDto): Promise<Transaction> {
     const checkCategory = await this.categoryRepository.findOne({
-      where: { id: dto.categoryId },
+      where: { id: dto.category },
     });
     const changeBalance = await this.bankRepository.findOne({
-      where: { id: dto.bankId },
+      where: { id: dto.bank },
     });
     if (!changeBalance || !checkCategory) {
       throw new HttpException(
@@ -31,8 +31,8 @@ export class TransactionService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    console.log(dto.categoryId);
-    console.log(dto.bankId);
+    console.log(dto);
+
     dto.type
       ? (changeBalance.balance += dto.amount)
       : (changeBalance.balance -= dto.amount);

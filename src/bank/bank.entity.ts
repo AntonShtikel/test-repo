@@ -23,6 +23,6 @@ export class Bank extends BaseEntity {
   @Column()
   balance: number;
 
-  @OneToMany(() => Transaction, (transaction) => transaction.id)
+  @OneToMany(() => Transaction, (transaction) => transaction.bank)
   transaction: Transaction[];
 }

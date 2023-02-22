@@ -14,14 +14,14 @@ export class CreateTransactionDto {
   readonly type: boolean;
 
   @ApiProperty({
-    example: 'd30accd9-20d3-4129-99b7-909482a0d0c4',
+    example: '1',
     description: 'Bank id',
   })
-  readonly bankId: number;
+  readonly bank: number;
 
   @ApiProperty({
-    example: '176412ff-8baa-4954-815f-74af3ec13c33',
+    example: '1',
     description: 'Category id',
   })
-  readonly categoryId: number;
+  readonly category: number;
 }
