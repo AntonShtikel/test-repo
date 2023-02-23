@@ -42,8 +42,12 @@ export class TransactionService {
     return await this.transactionRepository.save(dto);
   }
 
-  async getTransactions(): Promise<Transaction[]> {
-    return await this.transactionRepository.find();
+  async getTransactions(page = 1, limit = 10): Promise<Transaction[]> {
+    const skip = (page - 1) * limit;
+    return await this.transactionRepository.find({
+      skip,
+      take: limit,
+    });
   }
 
   async deleteTransaction(id: number): Promise<string> {

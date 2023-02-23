@@ -1,4 +1,12 @@
-import {Body, Controller, Get, Post, Headers, Req, Delete, Param} from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Delete,
+  Param,
+  Query,
+} from '@nestjs/common';
 import { TransactionService } from './transaction.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Transaction } from './transaction.entity';
@@ -20,8 +28,8 @@ export class TransactionController {
   @ApiOperation({ summary: 'Get all transactions' })
   @ApiResponse({ status: 200, type: [Transaction] })
   @Get()
-  getAllTransactions() {
-    return this.transactionService.getTransactions();
+  getAllTransactions(@Query('page') page = 1, @Query('limit') limit = 10) {
+    return this.transactionService.getTransactions(+page, +limit);
   }
 
   @ApiOperation({ summary: 'Delete one transaction' })
