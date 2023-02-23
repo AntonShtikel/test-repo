@@ -24,5 +24,5 @@ export class Bank extends BaseEntity {
   balance: number;
 
   @OneToMany(() => Transaction, (transaction) => transaction.bank)
-  transaction: Transaction[];
+  transactions: Transaction[];
 }

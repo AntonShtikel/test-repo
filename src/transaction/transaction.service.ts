@@ -22,10 +22,10 @@ export class TransactionService {
 
   async createTransaction(dto: CreateTransactionDto): Promise<Transaction> {
     const checkCategory = await this.categoryRepository.findOne({
-      where: { id: dto.category },
+      where: { id: dto.categoryId },
     });
     const changeBalance = await this.bankRepository.findOne({
-      where: { id: dto.bank },
+      where: { id: dto.bankId },
     });
     if (!changeBalance || !checkCategory) {
       throw new HttpException(
@@ -38,8 +38,13 @@ export class TransactionService {
       ? (changeBalance.balance += dto.amount)
       : (changeBalance.balance -= dto.amount);
     await this.bankRepository.save(changeBalance);
-    await axios.post(process.env.WEBHOOKURL, dto);
-    return await this.transactionRepository.save(dto);
+    const transaction = new Transaction();
+    transaction.amount = dto.amount;
+    transaction.type = dto.type;
+    transaction.bank = changeBalance;
+    transaction.category = checkCategory;
+    await axios.post(process.env.WEBHOOKURL, transaction);
+    return await this.transactionRepository.save(transaction);
   }
 
   async getTransactions(page = 1, limit = 10): Promise<Transaction[]> {

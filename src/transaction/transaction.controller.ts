@@ -11,6 +11,8 @@ import { TransactionService } from './transaction.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Transaction } from './transaction.entity';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
+import { Bank } from '../bank/bank.entity';
+import { Category } from '../categories/category.entity';
 
 @ApiTags('Transaction')
 @Controller('transaction')

@@ -38,14 +38,14 @@ export class Transaction extends BaseEntity {
     example: '2023-02-22 12:10:27.974312',
     description: 'created time',
   })
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   created_at: Date;
 
-  @ManyToOne(() => Bank, (bank) => bank.id)
+  @ManyToOne(() => Bank, (bank) => bank.transactions)
   @JoinColumn()
-  bank: number;
+  bank: Bank;
 
-  @ManyToOne(() => Category, (category) => category.id)
+  @ManyToOne(() => Category, (category) => category.transaction)
   @JoinColumn()
-  category: number;
+  category: Category;
 }

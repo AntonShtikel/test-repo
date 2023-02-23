@@ -17,11 +17,11 @@ export class CreateTransactionDto {
     example: '1',
     description: 'Bank id',
   })
-  readonly bank: number;
+  readonly bankId: number;
 
   @ApiProperty({
     example: '1',
     description: 'Category id',
   })
-  readonly category: number;
+  readonly categoryId: number;
 }
