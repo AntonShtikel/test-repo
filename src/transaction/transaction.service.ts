@@ -5,6 +5,8 @@ import { Transaction } from './transaction.entity';
 import { Repository } from 'typeorm';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { Bank } from '../bank/bank.entity';
+import axios from 'axios';
+import * as process from 'process';
 
 @Injectable()
 export class TransactionService {
@@ -31,12 +33,23 @@ export class TransactionService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    console.log(dto);
 
     dto.type
       ? (changeBalance.balance += dto.amount)
       : (changeBalance.balance -= dto.amount);
     await this.bankRepository.save(changeBalance);
+    await axios.post(process.env.WEBHOOKURL, dto);
     return await this.transactionRepository.save(dto);
+  }
+
+  async getTransactions(): Promise<Transaction[]> {
+    return await this.transactionRepository.find();
+  }
+
+  async deleteTransaction(id: number): Promise<string> {
+    if (await this.transactionRepository.delete({ id })) {
+      return ` transaction  ${id} deleted`;
+    }
+    return 'deleting error';
   }
 }
