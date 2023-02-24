@@ -11,8 +11,6 @@ import { TransactionService } from './transaction.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Transaction } from './transaction.entity';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
-import { Bank } from '../bank/bank.entity';
-import { Category } from '../categories/category.entity';
 
 @ApiTags('Transaction')
 @Controller('transaction')
@@ -39,5 +37,20 @@ export class TransactionController {
   @Delete('/:id')
   deleteBank(@Param('id') id: number) {
     return this.transactionService.deleteTransaction(id);
+  }
+
+  @ApiOperation({ summary: 'Transactions statistic' })
+  @ApiResponse({ status: 200, type: Transaction })
+  @Get(':categoryId/:fromPeriod/:toPeriod')
+  async getCategoryStatistic(
+    @Param('categoryId') categoryId: number,
+    @Param('fromPeriod') fromPeriod: string,
+    @Param('toPeriod') toPeriod: string,
+  ): Promise<Transaction[]> {
+    return await this.transactionService.getStatistics(
+      categoryId,
+      new Date(fromPeriod),
+      new Date(toPeriod),
+    );
   }
 }

@@ -11,7 +11,6 @@ import { CategoryService } from './category.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Category } from './category.entity';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { Transaction } from '../transaction/transaction.entity';
 @ApiTags('Category')
 @Controller('category')
 export class CategoryController {
@@ -49,20 +48,5 @@ export class CategoryController {
     @Param('id') id: number,
   ) {
     return this.categoryService.editCategory(id, updateCategoryDto);
-  }
-
-  @ApiOperation({ summary: 'Transactions statistic' })
-  @ApiResponse({ status: 200, type: Transaction })
-  @Get(':categoryId/:fromPeriod/:toPeriod')
-  async getCategoryStatistic(
-    @Param('categoryId') categoryId: number,
-    @Param('fromPeriod') fromPeriod: string,
-    @Param('toPeriod') toPeriod: string,
-  ): Promise<Transaction[]> {
-    return await this.categoryService.getStatistics(
-      categoryId,
-      new Date(fromPeriod),
-      new Date(toPeriod),
-    );
   }
 }

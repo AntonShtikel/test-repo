@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from '../categories/category.entity';
 import { Transaction } from './transaction.entity';
-import { Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { Bank } from '../bank/bank.entity';
 import axios from 'axios';
@@ -60,5 +60,21 @@ export class TransactionService {
       return ` transaction  ${id} deleted`;
     }
     return 'deleting error';
+  }
+  async getStatistics(
+    categoryId: number,
+    fromPeriod: Date,
+    toPeriod: Date,
+  ): Promise<any[]> {
+    let transactions = [];
+    transactions = await this.transactionRepository.find({
+      where: {
+        category: { id: categoryId },
+        created_at: Between(fromPeriod, toPeriod),
+      },
+      relations: ['bank', 'category'],
+    });
+    console.log(transactions);
+    return transactions;
   }
 }
