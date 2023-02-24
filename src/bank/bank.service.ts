@@ -26,7 +26,7 @@ export class BankService {
     if (await this.bankRepository.delete({ name })) {
       return `${name} deleted`;
     }
-    return 'deleting error';
+    throw new HttpException('delete error', HttpStatus.BAD_REQUEST);
   }
 
   async editBank(id, updateBankDto: CreateBankDto): Promise<UpdateResult> {

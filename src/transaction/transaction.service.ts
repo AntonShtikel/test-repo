@@ -74,7 +74,6 @@ export class TransactionService {
       },
       relations: ['bank', 'category'],
     });
-    console.log(transactions);
     return transactions;
   }
 }
