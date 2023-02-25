@@ -12,6 +12,12 @@ export class CategoryService {
   ) {}
 
   async createCategory(dto: CreateCategoryDto): Promise<Category> {
+    const category = this.categoryRepository.findOne({
+      where: { name: dto.name },
+    });
+    if (category) {
+      throw new HttpException('Category exist', HttpStatus.BAD_REQUEST);
+    }
     return await this.categoryRepository.save(dto);
   }
 
