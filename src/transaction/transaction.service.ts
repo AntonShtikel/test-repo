@@ -21,13 +21,19 @@ export class TransactionService {
   ) {}
 
   async createTransaction(dto: CreateTransactionDto): Promise<Transaction> {
-    const checkCategory = await this.categoryRepository.findOne({
-      where: { id: dto.categoryId },
-    });
+    const categories = [];
+    for (const id of dto.categoryIds) {
+      const category = await this.categoryRepository.findOne({
+        where: { id: id },
+      });
+      if (category) {
+        categories.push(category);
+      }
+    }
     const changeBalance = await this.bankRepository.findOne({
       where: { id: dto.bankId },
     });
-    if (!changeBalance || !checkCategory) {
+    if (!changeBalance || !categories) {
       throw new HttpException(
         'Bank or Category do not exist',
         HttpStatus.BAD_REQUEST,
@@ -42,7 +48,7 @@ export class TransactionService {
     transaction.amount = dto.amount;
     transaction.type = dto.type;
     transaction.bank = changeBalance;
-    transaction.category = checkCategory;
+    transaction.categories = categories;
     await axios.post(process.env.WEBHOOKURL, transaction);
     return await this.transactionRepository.save(transaction);
   }
@@ -69,10 +75,9 @@ export class TransactionService {
     let transactions = [];
     transactions = await this.transactionRepository.find({
       where: {
-        category: { id: categoryId },
+        categories: { id: categoryId },
         created_at: Between(fromPeriod, toPeriod),
       },
-      relations: ['bank', 'category'],
     });
     return transactions;
   }

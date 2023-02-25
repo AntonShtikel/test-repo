@@ -12,7 +12,7 @@ export class CategoryService {
   ) {}
 
   async createCategory(dto: CreateCategoryDto): Promise<Category> {
-    const category = this.categoryRepository.findOne({
+    const category = await this.categoryRepository.findOne({
       where: { name: dto.name },
     });
     if (category) {

@@ -3,7 +3,8 @@ import {
   BaseEntity,
   Column,
   Entity,
-  OneToMany,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Transaction } from '../transaction/transaction.entity';
@@ -20,9 +21,10 @@ export class Category extends BaseEntity {
     example: 'ExampleCategory',
     description: 'Category name',
   })
-  @Column({ nullable: false })
+  @Column({ nullable: false, unique: true })
   name: string;
 
-  @OneToMany(() => Transaction, (transaction) => transaction.category)
-  transaction: Transaction;
+  @ManyToMany(() => Transaction, (transaction) => transaction.categories)
+  @JoinTable()
+  transactions: Transaction[];
 }

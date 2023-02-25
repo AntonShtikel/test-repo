@@ -23,5 +23,5 @@ export class CreateTransactionDto {
     example: '1',
     description: 'Category id',
   })
-  readonly categoryId: number;
+  readonly categoryIds: number[];
 }

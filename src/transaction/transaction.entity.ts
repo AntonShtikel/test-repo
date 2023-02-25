@@ -3,7 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
+  JoinColumn, JoinTable, ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -45,7 +45,7 @@ export class Transaction extends BaseEntity {
   @JoinColumn()
   bank: Bank;
 
-  @ManyToOne(() => Category, (category) => category.transaction)
-  @JoinColumn()
-  category: Category;
+  @ManyToMany(() => Category)
+  @JoinTable()
+  categories: Category[];
 }
