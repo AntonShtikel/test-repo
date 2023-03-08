@@ -7,7 +7,7 @@ import { Bank } from './bank/bank.entity';
 import { CategoryModule } from './categories/category.module';
 import { Category } from './categories/category.entity';
 import { Transaction } from './transaction/transaction.entity';
-import {TransactionModule} from "./transaction/transaction.module";
+import { TransactionModule } from './transaction/transaction.module';
 
 @Module({
   controllers: [],

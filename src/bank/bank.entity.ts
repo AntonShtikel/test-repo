@@ -1,6 +1,12 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+} from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import {Transaction} from "../transaction/transaction.entity";
+import { Transaction } from '../transaction/transaction.entity';
 
 @Entity({ name: 'bank' })
 export class Bank extends BaseEntity {
