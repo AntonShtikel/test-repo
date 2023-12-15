@@ -1,4 +1,4 @@
-"remoteEnvConfig"" {
+"remoteEnvConfig": {
   "envName": "json", 
   "test": "first"
 }
