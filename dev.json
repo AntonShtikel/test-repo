@@ -1,4 +1,4 @@
 {
-  envName: "json", 
-  test: "first"
+  "envName": "json", 
+  "test": "first"
 }
