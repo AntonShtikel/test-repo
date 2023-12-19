@@ -1,1 +1,1 @@
-export const envConfig = { envName: 'ts', test: 'first', ebat: '99999' };
+export const envConfig = { envName: 'ts', test: 'first', ebat: '33333' };
