@@ -1,1 +1,1 @@
-export const envConfig = { envName: 'ts', test: 'first', kek: '0000000' };
+export const envConfig = { envName: 'ts', test: 'first', kek: '------' };
