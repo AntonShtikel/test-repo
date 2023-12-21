@@ -1,1 +1,1 @@
-export const envConfig = { envName: 'ts', test: 'local' };
+export const envConfig = { envName: 'ts', test: 'typescript' };
